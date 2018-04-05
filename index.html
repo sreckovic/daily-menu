@@ -10,14 +10,15 @@
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper blue">
-      <div class="container">
-        <a href="#" class="brand-logo center">Daily Menu</a>
-      </div>
-    </div>
-  </nav>
-
+  <div class="container">
+    <nav>
+        <div class="nav-wrapper blue">
+          <div class="container">
+            <a href="#" class="brand-logo center">Daily Menu</a>
+          </div>
+        </div>
+      </nav>
+  </div>
 
   <div class="container">
     <div class="card">
@@ -25,27 +26,27 @@
         <span class="card-title">
           Add Meal / Food Item
         </span>
-        <form class="col">
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" id="item-name">
-              <label for="item-name">Meal</label>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="item-desc" class="materialize-textarea"></textarea>
-              <label for="item-desc">Description</label>
-            </div>
-            <button class="add-btn btn blue darken-3">
-              <i class="fa fa-plus"></i> Add Meal</button>
+        <div class="row">
+          <form>
+          <div class="input-field col s12">
+            <input type="text" id="item-name">
+            <label for="item-name">Meal</label>
           </div>
-        </form>
+          <div class="input-field col s12">
+            <textarea id="item-desc" class="materialize-textarea"></textarea>
+            <label for="item-desc">Description</label>
+          </div>
+          <button class="add-btn btn blue darken-3">
+            <i class="fa fa-plus"></i> Add Meal</button>
+          </form>
+        </div>
 
         <ul id="item-list" class="collection">
         </ul>
       </div>
     </div>
 
-    <h2 class="center-align">Menus</h2>
+    <h3 class="center-align">Menus</h2>
 
     <div id="items-list" class=""></div>
 

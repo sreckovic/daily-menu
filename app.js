@@ -17,44 +17,44 @@ const itemCtrl = (function() {
     menus: [
       {
         id: 0,
-        name: 'Opcija 1',
+        name: "Opcija 1",
         items: [
           {
             id: 0,
-            name: 'Corba',
-            desc: 'Krem corba od sremusa i sargarepe'
+            name: "Corba",
+            desc: "Krem corba od sremusa i sargarepe"
           },
           {
             id: 1,
-            name: 'Rizoto Al Verde',
+            name: "Rizoto Al Verde",
             desc:
-              'Prolecni rizoto Al Verde sa piletinom, prazilukom, spanatom, gorgonzolom, svezim zacinskim biljem i pestom od bosiljka'
+              "Prolecni rizoto Al Verde sa piletinom, prazilukom, spanatom, gorgonzolom, svezim zacinskim biljem i pestom od bosiljka"
           },
           {
             id: 2,
-            name: 'Salata',
-            desc: 'Miks zelenih salata sa ceri paradajizom i semenkicama'
+            name: "Salata",
+            desc: "Miks zelenih salata sa ceri paradajizom i semenkicama"
           }
         ],
         currentItem: null
       },
       {
         id: 1,
-        name: 'Opcija 2',
+        name: "Opcija 2",
         items: [
           {
             id: 0,
-            name: 'Corba',
-            desc: 'Krem corba od sremusa i sargarepe'
+            name: "Corba",
+            desc: "Krem corba od sremusa i sargarepe"
           },
           {
             id: 1,
-            name: 'Grasak',
+            name: "Grasak",
             desc:
-              'Grasak sa piletinom i integralnim knedlicama i svezom mirodjijom na belo'
+              "Grasak sa piletinom i integralnim knedlicama i svezom mirodjijom na belo"
           },
-          { id: 2, name: 'Salata', desc: 'Miks zelenih salata' },
-          { id: 3, name: 'Hleb', desc: '' }
+          { id: 2, name: "Salata", desc: "Miks zelenih salata" },
+          { id: 3, name: "Hleb", desc: "" }
         ],
         currentItem: null
       }
@@ -72,20 +72,20 @@ const itemCtrl = (function() {
 // UI Controler
 const uiCtrl = (function() {
   const selectors = {
-    itemsList: '#items-list'
+    itemsList: "#items-list"
   };
   return {
     renderMenus: function(menus) {
       // Create menu list (menuList)
-      let menuList = '';
+      let menuList = "";
 
       menus.forEach(function(menu) {
-        let itemList = '';
+        let itemList = "";
 
         // Populate Meal/Food item list for current menu item
         menu.items.forEach(function(item) {
           itemList += `
-            <li id="item-${item.id}" class="collection-item">${item.name}: ${
+          <li id="item-${item.id}" class="collection-item">${item.name}: ${
             item.desc
           }</li>
           `;
@@ -94,7 +94,7 @@ const uiCtrl = (function() {
         // Populate menu list (menuList)
         menuList += `
           <div id="menu-${menu.id}">
-            <h3>${menu.name}:</h3>
+            <h4>${menu.name}</h4>
             <ul class="collection">${itemList}</ul>
             <a href="#" class="secondary-content">
               <i class="edit-item fa fa-pencil-alt"></i>
@@ -116,7 +116,7 @@ const uiCtrl = (function() {
 const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
   return {
     init: function() {
-      console.log('init');
+      console.log("init");
 
       // Fetch items from state
       const items = itemCtrl.getItems();
