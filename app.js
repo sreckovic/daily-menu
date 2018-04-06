@@ -17,54 +17,72 @@ const itemCtrl = (function() {
     menus: [
       {
         id: 0,
-        name: "Opcija 1",
+        name: '3 Course Meal',
         items: [
           {
             id: 0,
-            name: "Corba",
-            desc: "Krem corba od sremusa i sargarepe"
+            name: 'Salad',
+            desc: 'Roasted Fig Salad - Spinach'
           },
           {
             id: 1,
-            name: "Rizoto Al Verde",
-            desc:
-              "Prolecni rizoto Al Verde sa piletinom, prazilukom, spanatom, gorgonzolom, svezim zacinskim biljem i pestom od bosiljka"
+            name: 'Entree',
+            desc: '7/8 oz. New York Strip Steak with a Fig & Herb Butter'
           },
           {
             id: 2,
-            name: "Salata",
-            desc: "Miks zelenih salata sa ceri paradajizom i semenkicama"
+            name: 'Dessert',
+            desc: 'Chocolate and Caramel Drizzled Bread Pudding'
           }
         ],
         currentItem: null
       },
       {
         id: 1,
-        name: "Opcija 2",
+        name: '5 Course Vegan Meal',
         items: [
           {
             id: 0,
-            name: "Corba",
-            desc: "Krem corba od sremusa i sargarepe"
+            name: 'Seasonal Squash Casserole Soup',
+            desc:
+              'Roasted and pureed seasonal squash with cinnamon and nutmeg seasonings'
           },
           {
             id: 1,
-            name: "Grasak",
+            name: 'Stuffed Baby Portobello Mushroom Caps',
             desc:
-              "Grasak sa piletinom i integralnim knedlicama i svezom mirodjijom na belo"
+              'Fresh baby portobello mushroom caps stuffed with roasted cherry tomatoes and vegan Italian herb cheese, topped with a balsamic glaze'
           },
-          { id: 2, name: "Salata", desc: "Miks zelenih salata" },
-          { id: 3, name: "Hleb", desc: "" }
+          {
+            id: 2,
+            name: 'Chilled Mint and Cantaloupe Shooters',
+            desc: ''
+          },
+          {
+            id: 3,
+            name: 'Roasted Tomato Pasta',
+            desc: 'Tomato basil confit and zucchini pasta'
+          },
+          {
+            id: 4,
+            name: 'Fresh Baked Blueberry Crumble a la Mode',
+            desc:
+              'Fresh blueberries baked with a homemade almond meal crust, served with a scoop of So Delicious Coconut Milk Vanilla Bean Ice Cream'
+          }
         ],
         currentItem: null
       }
     ],
-    currentMenu: null
+    currentMenu: null,
+    currentItems: null
   };
 
   return {
     getItems: function() {
       return state.menus;
+    },
+    logData: function() {
+      return state;
     }
   };
 })();
@@ -72,15 +90,18 @@ const itemCtrl = (function() {
 // UI Controler
 const uiCtrl = (function() {
   const selectors = {
-    itemsList: "#items-list"
+    itemNameInput: '#item-name',
+    itemDescInput: '#item-desc',
+    addItemBtn: '#add-item',
+    itemsList: '#items-list'
   };
   return {
     renderMenus: function(menus) {
       // Create menu list (menuList)
-      let menuList = "";
+      let menuList = '';
 
       menus.forEach(function(menu) {
-        let itemList = "";
+        let itemList = '';
 
         // Populate Meal/Food item list for current menu item
         menu.items.forEach(function(item) {
@@ -106,23 +127,56 @@ const uiCtrl = (function() {
         document.querySelector(selectors.itemsList).innerHTML = menuList;
       });
     },
+    getItemInput: function() {
+      return {
+        name: document.querySelector(selectors.itemNameInput).value,
+        desc: document.querySelector(selectors.itemDescInput).value
+      };
+    },
     getSelectors: function() {
-      return uiSelectors;
+      return selectors;
     }
   };
 })();
 
 // App Controler
 const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
+  const loadEventListeners = function() {
+    const uiSelectors = uiCtrl.getSelectors();
+
+    // Add item button event
+    document
+      .querySelector(uiSelectors.addItemBtn)
+      .addEventListener('click', itemAddSubmit);
+  };
+
+  const itemAddSubmit = function(e) {
+    console.log('Add Item Button pressed!');
+
+    // Get from input from uiCtrl
+    const input = uiCtrl.getItemInput();
+    // Check for name and desc
+    if (input.name !== '' && input.desc !== '') {
+      // Add item
+      console.log(input);
+      // const newItem = itemCtrl.addItem(input.name, input.calories);
+      // Add item to UI list
+      // uiCtrl.addListItem(newItem);
+      // Clear fields
+      // uiCtrl.clearInput();
+    }
+
+    e.preventDefault();
+  };
+
   return {
     init: function() {
-      console.log("init");
-
       // Fetch items from state
       const items = itemCtrl.getItems();
-
       // Render items list
       uiCtrl.renderMenus(items);
+      // Load event listeners
+      loadEventListeners();
     }
   };
 })(storageCtrl, itemCtrl, uiCtrl);

@@ -12,32 +12,32 @@
 <body>
   <div class="container">
     <nav>
-        <div class="nav-wrapper blue">
-          <div class="container">
-            <a href="#" class="brand-logo center">Daily Menu</a>
-          </div>
+      <div class="nav-wrapper blue">
+        <div class="container">
+          <a href="#" class="brand-logo center">Daily Menu</a>
         </div>
-      </nav>
+      </div>
+    </nav>
   </div>
 
   <div class="container">
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          Add Meal / Food Item
+          Add Item to Menu
         </span>
         <div class="row">
           <form>
-          <div class="input-field col s12">
-            <input type="text" id="item-name">
-            <label for="item-name">Meal</label>
-          </div>
-          <div class="input-field col s12">
-            <textarea id="item-desc" class="materialize-textarea"></textarea>
-            <label for="item-desc">Description</label>
-          </div>
-          <button class="add-btn btn blue darken-3">
-            <i class="fa fa-plus"></i> Add Meal</button>
+            <div class="input-field col s12">
+              <input type="text" id="item-name">
+              <label for="item-name">Item name</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="item-desc" class="materialize-textarea"></textarea>
+              <label for="item-desc">Item description</label>
+            </div>
+            <button id="add-item" class="add-btn btn blue darken-3">
+              <i class="fa fa-plus"></i> Add Item</button>
           </form>
         </div>
 
@@ -48,7 +48,7 @@
 
     <h3 class="center-align">Menus</h2>
 
-    <div id="items-list" class=""></div>
+      <div id="items-list" class=""></div>
 
   </div>
 
