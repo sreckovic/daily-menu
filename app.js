@@ -6,7 +6,7 @@ const storageCtrl = (function() {
 
 const itemCtrl = (function() {
   // Item Constructor
-  const item = function(id, name) {
+  const item = function(id, name, desc) {
     this.id = id;
     this.name = name;
     this.desc = desc;
@@ -74,10 +74,24 @@ const itemCtrl = (function() {
       }
     ],
     currentMenu: null,
-    currentItems: null
+    currentItems: []
   };
 
   return {
+    addItem: function(name, desc) {
+      let id;
+      // Create ID
+      if (state.currentItems.length > 0) {
+        id = state.currentItems[state.currentItems.length - 1].id + 1;
+      } else {
+        id = 0;
+      }
+
+      // Create new item
+      newItem = new item(id, name, desc);
+      state.currentItems.push(newItem);
+      return newItem;
+    },
     getItems: function() {
       return state.menus;
     },
@@ -151,15 +165,12 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
   };
 
   const itemAddSubmit = function(e) {
-    console.log('Add Item Button pressed!');
-
     // Get from input from uiCtrl
     const input = uiCtrl.getItemInput();
     // Check for name and desc
     if (input.name !== '' && input.desc !== '') {
       // Add item
-      console.log(input);
-      // const newItem = itemCtrl.addItem(input.name, input.calories);
+      const newItem = itemCtrl.addItem(input.name, input.desc);
       // Add item to UI list
       // uiCtrl.addListItem(newItem);
       // Clear fields
