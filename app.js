@@ -107,7 +107,8 @@ const uiCtrl = (function() {
     itemNameInput: '#item-name',
     itemDescInput: '#item-desc',
     addItemBtn: '#add-item',
-    itemsList: '#items-list'
+    itemsList: '#items-list',
+    itemList: '#item-list'
   };
   return {
     renderMenus: function(menus) {
@@ -141,6 +142,23 @@ const uiCtrl = (function() {
         document.querySelector(selectors.itemsList).innerHTML = menuList;
       });
     },
+    addListItem: function(item) {
+      // Create li element
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      li.id = `item-${item.id}`;
+      li.innerHTML = `
+        <strong>${item.name}:</strong>
+        <em>${item.desc}</em>
+        <a href="#" class="secondary-content">
+          <i class="edit-item fa fa-pencil-alt"></i>
+        </a>
+      `;
+
+      document
+        .querySelector(selectors.itemList)
+        .insertAdjacentElement('beforeend', li);
+    },
     getItemInput: function() {
       return {
         name: document.querySelector(selectors.itemNameInput).value,
@@ -172,7 +190,7 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
       // Add item
       const newItem = itemCtrl.addItem(input.name, input.desc);
       // Add item to UI list
-      // uiCtrl.addListItem(newItem);
+      uiCtrl.addListItem(newItem);
       // Clear fields
       // uiCtrl.clearInput();
     }
