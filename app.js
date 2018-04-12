@@ -1,3 +1,10 @@
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+
+// window.on = function(name, fn) {
+//   this.addEventListener(name, fn);
+// };
+
 // Storage Controler
 const storageCtrl = (function() {
   // Public functions
@@ -110,6 +117,7 @@ const uiCtrl = (function() {
     itemsList: '#items-list',
     itemList: '#item-list'
   };
+
   return {
     renderMenus: function(menus) {
       // Create menu list (menuList)
@@ -139,7 +147,7 @@ const uiCtrl = (function() {
         `;
 
         // Render menu list (menuList) to DOM
-        document.querySelector(selectors.itemsList).innerHTML = menuList;
+        $(selectors.itemsList).innerHTML = menuList;
       });
     },
     addListItem: function(item) {
@@ -155,18 +163,35 @@ const uiCtrl = (function() {
         </a>
       `;
 
-      document
-        .querySelector(selectors.itemList)
-        .insertAdjacentElement('beforeend', li);
+      $(selectors.itemList).insertAdjacentElement('beforeend', li);
     },
     getItemInput: function() {
       return {
-        name: document.querySelector(selectors.itemNameInput).value,
-        desc: document.querySelector(selectors.itemDescInput).value
+        name: $(selectors.itemNameInput).value,
+        desc: $(selectors.itemDescInput).value
       };
     },
     getSelectors: function() {
       return selectors;
+    },
+    clearFlash: function() {
+      $('.flash').remove();
+    },
+    flash: function(msg, type) {
+      // Create flash element
+      const flash = document.createElement('div');
+      // Add class type if any
+      flash.className = `flash lighten-1 ${type}`;
+      // Add content
+      flash.innerHTML = `
+        <p>${msg}</p>
+      `;
+      // Get a reference to the element
+      var ref = $('#item-name').parentNode;
+      // Get a reference to the parent element
+      var parentDiv = ref.parentNode;
+      // Insert the new element into the DOM before reference
+      parentDiv.insertBefore(flash, ref);
     }
   };
 })();
@@ -177,9 +202,7 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
     const uiSelectors = uiCtrl.getSelectors();
 
     // Add item button event
-    document
-      .querySelector(uiSelectors.addItemBtn)
-      .addEventListener('click', itemAddSubmit);
+    $(uiSelectors.addItemBtn).addEventListener('click', itemAddSubmit);
   };
 
   const itemAddSubmit = function(e) {
@@ -193,6 +216,11 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
       uiCtrl.addListItem(newItem);
       // Clear fields
       // uiCtrl.clearInput();
+    } else {
+      // Show flash
+      uiCtrl.flash('Please input item name and description.', 'grey');
+      // Remove flash after 3 sec
+      setTimeout(uiCtrl.clearFlash, 3000);
     }
 
     e.preventDefault();
