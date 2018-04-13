@@ -203,6 +203,10 @@ const uiCtrl = (function() {
       } else {
         $(selectors.createMenuBtn).disabled = true;
       }
+    },
+    clearInputFields: function() {
+      $(selectors.itemNameInput).value = '';
+      $(selectors.itemDescInput).value = '';
     }
   };
 })();
@@ -226,10 +230,14 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
       // Add item to UI list
       uiCtrl.addListItem(newItem);
       // Clear fields
-      // uiCtrl.clearInput();
+      uiCtrl.clearInputFields();
+      // Show flash
+      uiCtrl.flash('New menu item added.', 'green');
+      // Remove flash after 3 sec
+      setTimeout(uiCtrl.clearFlash, 3000);
     } else {
       // Show flash
-      uiCtrl.flash('Please input item name and description.', 'grey');
+      uiCtrl.flash('Please input both item name and description.', 'grey');
       // Remove flash after 3 sec
       setTimeout(uiCtrl.clearFlash, 3000);
     }
