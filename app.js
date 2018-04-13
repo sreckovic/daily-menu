@@ -102,6 +102,9 @@ const itemCtrl = (function() {
     getItems: function() {
       return state.menus;
     },
+    getCurrentItems: function() {
+      return state.currentItems;
+    },
     logData: function() {
       return state;
     }
@@ -114,6 +117,7 @@ const uiCtrl = (function() {
     itemNameInput: '#item-name',
     itemDescInput: '#item-desc',
     addItemBtn: '#add-item',
+    createMenuBtn: '#create-menu',
     itemsList: '#items-list',
     itemList: '#item-list'
   };
@@ -192,6 +196,13 @@ const uiCtrl = (function() {
       var parentDiv = ref.parentNode;
       // Insert the new element into the DOM before reference
       parentDiv.insertBefore(flash, ref);
+    },
+    renderCreateMenuBtn: function(currentItems) {
+      if (currentItems.length > 0) {
+        $(selectors.createMenuBtn).disabled = false;
+      } else {
+        $(selectors.createMenuBtn).disabled = true;
+      }
     }
   };
 })();
@@ -222,6 +233,10 @@ const appCtrl = (function(storageCtrl, itemCtrl, uiCtrl) {
       // Remove flash after 3 sec
       setTimeout(uiCtrl.clearFlash, 3000);
     }
+
+    // Render 'Create Menu' submit button
+    const currentItems = itemCtrl.getCurrentItems();
+    uiCtrl.renderCreateMenuBtn(currentItems);
 
     e.preventDefault();
   };
